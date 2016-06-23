@@ -2,7 +2,11 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
   def index
-    @comments = Comment.all
+    if params[:tag]
+      @comments = Comment.tagged_with(params[:tag])
+    else
+      @comments = Comment.all
+    end
   end
 
   def new
@@ -31,6 +35,6 @@ class CommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.require(:comment).permit(:title, :content, :author)
+      params.require(:comment).permit(:title, :content, :author, :tag_list)
     end
 end

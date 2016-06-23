@@ -2,10 +2,17 @@
 
 <h1>Listing Comments</h1>
 
+  <div>
+    <% tag_cloud Comment.tag_counts, %w[s m l] do |tag, css_class| %>
+    <%= link_to tag.name, tag_path(tag.name), class: css_class %>
+  <% end %>
+  </div>
+
     <% @comments.each do |comment| %>
         <h2><%= comment.title %></h2>
         <p><%= comment.content %></p>
-        <small>Submited <%= time_ago_in_words(comment.created_at) %>by: <%= comment.author %></small>
+        <p>Tag: <%= comment.tag_list %></p>
+        <small>Submited <%= time_ago_in_words(comment.created_at) %> by: <%= comment.author %></small>
     <% end %>
 
     <br>
