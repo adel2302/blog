@@ -1,20 +1,25 @@
 <p id="notice"><%= notice %></p>
-
-<h1>Listing Comments</h1>
-
-  <div>
-    <% tag_cloud Comment.tag_counts, %w[s m l] do |tag, css_class| %>
-    <%= link_to tag.name, tag_path(tag.name), class: css_class %>
-  <% end %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="thumbnail">
+        <% tag_cloud Comment.tag_counts, %w[s m l] do |tag, css_class| %>
+          <%= link_to tag.name, tag_path(tag.name), class: css_class %>
+        <% end %>
+      </div>
+    </div>
   </div>
-
-    <% @comments.each do |comment| %>
-        <h2><%= comment.title %></h2>
-        <p><%= comment.content %></p>
-        <p>Tag: <%= comment.tag_list %></p>
-        <small>Submited <%= time_ago_in_words(comment.created_at) %> by: <%= comment.author %></small>
-    <% end %>
-
-    <br>
-
-<%= link_to 'New Comment', new_comment_path %>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <% @comments.each do |comment| %>
+        <div class="thumbnail">
+          <blockquote>
+            <p><%= comment.content %></p>
+            <p>Tag: <%= comment.tag_list %></p>
+            <footer>Submited <%= time_ago_in_words(comment.created_at) %> by: <%= comment.author %></footer>
+          </blockquote>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
