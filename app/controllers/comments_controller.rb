@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
 
   def index
     if params[:tag]
-      @comments = Comment.tagged_with(params[:tag])
+      @comments = Comment.page(params[:page]).per(5).tagged_with(params[:tag])
     else
       @comments = Comment.order(created_at: :desc).page(params[:page]).per(5)
     end
